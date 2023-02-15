@@ -18,11 +18,11 @@ public class Person {
          * @param age    the age of the person
          * @param gender the gender of the person
          */
-    public Person(String name, int age, String gender){
+    public Person(String name, int age, String gender) throws NegativeAgeException, WrongGenderException {
         this.name = name;
-        if(age<0) throw new RuntimeException("Age can't be negative");
+        if(age<0) throw new NegativeAgeException("Age can't be negative");
         else this.age = age;
-        if(gender != "Male" && gender != "Female") throw new RuntimeException("Gender should be Male or Female");
+        if(!gender.equalsIgnoreCase("Male") && !gender.equalsIgnoreCase("Female")) throw new  WrongGenderException("Gender should be Male or Female");
         else this.gender = gender;
     }
 
@@ -36,17 +36,20 @@ public class Person {
 
     /**
      * Computes the average age of male and female persons in a list and returns the result in an array of two elements
-     * (the first element is the male mean age and the second one is the female mean age)
+     * (the first element is the male mean age and the second one is the female mean age). If there aren't any females or males,
+     * the average age for that gender will be equal to 0.
      *
      * @param persons
      * @return
      */
-    public double[] averageAgePerGender(List<Person> persons){
-        double[] medias = new double[2];
+    public double[] averageAgePerGender(List<Person> persons) throws EmptyListException {
+        if(persons.size()==0) throw new EmptyListException("The list can't be empty");
+
+        double[] medias = {0,0};
         int contMale = 0;
         int contFemale = 0;
         for (Person p : persons) {
-            if(p.gender().compareTo("Male")==0){
+            if(p.gender().equalsIgnoreCase("Male")){
                 medias[0] += p.age();
                 contMale++;
             } else {
@@ -54,8 +57,8 @@ public class Person {
                 contFemale++;
             }
         }
-        medias[0] = medias[0]/contMale;
-        medias[1] = medias[1]/contFemale;
+        if(contMale!=0) medias[0] = medias[0]/contMale;
+        if(contFemale!=0) medias[1] = medias[1]/contFemale;
         return medias;
     }
 }
