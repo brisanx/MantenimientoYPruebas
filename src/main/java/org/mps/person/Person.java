@@ -40,5 +40,21 @@ public class Person {
      * @param persons
      * @return
      */
-    public double[] averageAgePerGender(List<Person> persons){ return null;}
+    public double[] averageAgePerGender(List<Person> persons){
+        double[] medias = new double[2];
+        int contMale = 0;
+        int contFemale = 0;
+        for (Person p : persons) {
+            if(p.gender().compareTo("Male")==0){
+                medias[0] += p.age();
+                contMale++;
+            } else {
+                medias[1] += p.age();
+                contFemale++;
+            }
+        }
+        medias[0] = medias[0]/contMale;
+        medias[1] = medias[1]/contFemale;
+        return medias;
+    }
 }
