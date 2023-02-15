@@ -1,2 +1,5 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-Person,org.mps.person,Person,0,103,0,10,0,23,0,10,0,5
+Person,org.mps.person,EmptyListException,0,4,0,0,0,2,0,1,0,1
+Person,org.mps.person,NegativeAgeException,0,4,0,0,0,2,0,1,0,1
+Person,org.mps.person,Person,0,125,0,16,0,24,0,13,0,5
+Person,org.mps.person,WrongGenderException,0,4,0,0,0,2,0,1,0,1

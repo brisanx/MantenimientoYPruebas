@@ -12,17 +12,17 @@ public class Person {
         private final String gender; // Male, Female
 
         /**
-         * Constructs a person with a name, age and gender
+         * Constructs a person with a name, age and gender. Age can't be negative. Gender must be Male or Female.
          *
          * @param name   the name of the person
          * @param age    the age of the person
          * @param gender the gender of the person
          */
-<span class="fc" id="L21">    public Person(String name, int age, String gender){</span>
+<span class="fc" id="L21">    public Person(String name, int age, String gender) throws NegativeAgeException, WrongGenderException {</span>
 <span class="fc" id="L22">        this.name = name;</span>
-<span class="fc bfc" id="L23" title="All 2 branches covered.">        if(age&lt;0) throw new RuntimeException(&quot;Age can't be negative&quot;);</span>
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        if(age&lt;0) throw new NegativeAgeException(&quot;Age can't be negative&quot;);</span>
 <span class="fc" id="L24">        else this.age = age;</span>
-<span class="fc bfc" id="L25" title="All 4 branches covered.">        if(gender != &quot;Male&quot; &amp;&amp; gender != &quot;Female&quot;) throw new RuntimeException(&quot;Gender should be Male or Female&quot;);</span>
+<span class="fc bfc" id="L25" title="All 4 branches covered.">        if(!gender.equalsIgnoreCase(&quot;Male&quot;) &amp;&amp; !gender.equalsIgnoreCase(&quot;Female&quot;)) throw new  WrongGenderException(&quot;Gender should be Male or Female&quot;);</span>
 <span class="fc" id="L26">        else this.gender = gender;</span>
 <span class="fc" id="L27">    }</span>
 
@@ -36,27 +36,30 @@ public class Person {
 
     /**
      * Computes the average age of male and female persons in a list and returns the result in an array of two elements
-     * (the first element is the male mean age and the second one is the female mean age)
+     * (the first element is the male mean age and the second one is the female mean age). If there aren't any females or males,
+     * the average age for that gender will be equal to 0.
      *
      * @param persons
      * @return
      */
-    public double[] averageAgePerGender(List&lt;Person&gt; persons){
-<span class="fc" id="L45">        double[] medias = new double[2];</span>
-<span class="fc" id="L46">        int contMale = 0;</span>
-<span class="fc" id="L47">        int contFemale = 0;</span>
-<span class="fc bfc" id="L48" title="All 2 branches covered.">        for (Person p : persons) {</span>
-<span class="fc bfc" id="L49" title="All 2 branches covered.">            if(p.gender().compareTo(&quot;Male&quot;)==0){</span>
-<span class="fc" id="L50">                medias[0] += p.age();</span>
-<span class="fc" id="L51">                contMale++;</span>
+    public double[] averageAgePerGender(List&lt;Person&gt; persons) throws EmptyListException {
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        if(persons.size()==0) throw new EmptyListException(&quot;The list can't be empty&quot;);</span>
+
+<span class="fc" id="L48">        double[] medias = {0,0};</span>
+<span class="fc" id="L49">        int contMale = 0;</span>
+<span class="fc" id="L50">        int contFemale = 0;</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        for (Person p : persons) {</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">            if(p.gender().equalsIgnoreCase(&quot;Male&quot;)){</span>
+<span class="fc" id="L53">                medias[0] += p.age();</span>
+<span class="fc" id="L54">                contMale++;</span>
             } else {
-<span class="fc" id="L53">                medias[1] += p.age();</span>
-<span class="fc" id="L54">                contFemale++;</span>
+<span class="fc" id="L56">                medias[1] += p.age();</span>
+<span class="fc" id="L57">                contFemale++;</span>
             }
-<span class="fc" id="L56">        }</span>
-<span class="fc" id="L57">        medias[0] = medias[0]/contMale;</span>
-<span class="fc" id="L58">        medias[1] = medias[1]/contFemale;</span>
-<span class="fc" id="L59">        return medias;</span>
+<span class="fc" id="L59">        }</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        if(contMale!=0) medias[0] = medias[0]/contMale;</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        if(contFemale!=0) medias[1] = medias[1]/contFemale;</span>
+<span class="fc" id="L62">        return medias;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
