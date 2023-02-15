@@ -12,7 +12,7 @@ public class Person {
         private final String gender; // Male, Female
 
         /**
-         * Constructs a person with a name, age and gender
+         * Constructs a person with a name, age and gender. Age can't be negative. Gender must be Male or Female.
          *
          * @param name   the name of the person
          * @param age    the age of the person
