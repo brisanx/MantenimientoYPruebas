@@ -19,10 +19,11 @@ public class Person {
          * @param gender the gender of the person
          */
     public Person(String name, int age, String gender){
-
         this.name = name;
-        this.age = age;
-        this.gender = gender;
+        if(age<0) throw new RuntimeException("Age can't be negative");
+        else this.age = age;
+        if(gender != "Male" && gender != "Female") throw new RuntimeException("Gender should be Male or Female");
+        else this.gender = gender;
     }
 
     public String name(){return name;}
